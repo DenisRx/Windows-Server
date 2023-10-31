@@ -1,0 +1,1 @@
+VBoxManage unregistervm "SQLServer" --delete
