@@ -1,5 +1,7 @@
 # Windows Server
 
+![windows server](https://partner.microsoft.com/-/media/mssc/mpn/partner/solutions/images/featurecontent-3-column-_500x280_windows_server.ashx?h=280&iar=0&w=500)
+
 ## Steps to follow
 
 * Clone the repository
