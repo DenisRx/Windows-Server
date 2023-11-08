@@ -1,9 +1,11 @@
-VBoxManage unregistervm "CA-AD" --delete
+# VBoxManage unregistervm "CA-AD" --delete
 VBoxManage unregistervm "DHCP-DNS" --delete
-VBoxManage unregistervm "SharePoint-DNS" --delete
-VBoxManage unregistervm "SQLServer" --delete
+# VBoxManage unregistervm "SharePoint-DNS" --delete
+# VBoxManage unregistervm "SQLServer" --delete
+VBoxManage unregistervm "Client" --delete
 
-Remove-Item "C:\Users\rouxd\VirtualBox VMs\CA-AD" -Recurse
+# Remove-Item "C:\Users\rouxd\VirtualBox VMs\CA-AD" -Recurse
 Remove-Item "C:\Users\rouxd\VirtualBox VMs\DHCP-DNS" -Recurse
-Remove-Item "C:\Users\rouxd\VirtualBox VMs\SharePoint-DNS" -Recurse
-Remove-Item "C:\Users\rouxd\VirtualBox VMs\SQLServer" -Recurse
+# Remove-Item "C:\Users\rouxd\VirtualBox VMs\SharePoint-DNS" -Recurse
+# Remove-Item "C:\Users\rouxd\VirtualBox VMs\SQLServer" -Recurse
+Remove-Item "C:\Users\rouxd\VirtualBox VMs\Client" -Recurse
