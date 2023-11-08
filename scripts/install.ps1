@@ -16,9 +16,11 @@ function CreateVm {
     # Set CPU and Memory
     VBoxManage modifyvm $VmName --cpus $CpuCount --memory $MemoryCount
 
+    # Set NAT network
+    VBoxManage modifyvm $VmName --nic1 natnetwork --nat-network1 NATNetwork1
+
     #########################
     # TODO:
-    # - Configure network
     # - Add shared folder
     #########################
 
@@ -50,10 +52,14 @@ function StartVm {
     VBoxManage startvm $VmName --type headless
 }
 
+# OS configurations
 $WSOsType = "Windows2022_64"
 $W10OsType = "Windows10_64"
 $WSIsoPath = "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\images\en-us_windows_server_2022_x64.iso"
 $W10IsoPath = "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\images\en-us_windows_10_x64.iso"
+
+# Create NAT Network
+VBoxManage natnetwork add --netname NATNetwork1 --network "192.168.23.0/24" --enable
 
 # Create VMs
 CreateVm "CA-AD" $WSOsType 1 (2 * 1024) (10 * 1024) "C:\Users\rouxd\VirtualBox VMs\CA-AD\CA-AD.vdi" $WSIsoPath 1
