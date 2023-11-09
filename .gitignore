@@ -1,1 +1,3 @@
-*.iso
+images/
+/*.pdf
+/*.txt

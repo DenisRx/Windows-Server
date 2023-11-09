@@ -19,11 +19,6 @@ function CreateVm {
     # Set NAT network
     VBoxManage modifyvm $VmName --nic1 natnetwork --nat-network1 NATNetwork1
 
-    #########################
-    # TODO:
-    # - Add shared folder
-    #########################
-
     # Create disk and set the size
     VBoxManage createmedium disk --filename $DiskPath --size $DiskSize --format VDI
 
@@ -41,6 +36,9 @@ function CreateVm {
 
     # Define boot order
     VBoxManage modifyvm $VmName --boot1 dvd --boot2 disk --boot3 none --boot4 none
+
+    # Configure shared folder
+    VBoxManage sharedfolder add $VmName --name scripts --hostpath "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\scripts\$VmName" --automount
 
     # Unattended installation of Windows server
     VBoxManage unattended install $VmName --iso=$IsoPath --user=denis --password pass1234 --locale="en_US" --country="FR" --time-zone=CET --hostname="${VmName}.ws2-2324-denis.hogent" --image-index=$imageIndex --install-additions
