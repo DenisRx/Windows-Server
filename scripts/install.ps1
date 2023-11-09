@@ -37,17 +37,11 @@ function CreateVm {
     # Define boot order
     VBoxManage modifyvm $VmName --boot1 dvd --boot2 disk --boot3 none --boot4 none
 
-    # Configure shared folder
-    VBoxManage sharedfolder add $VmName --name scripts --hostpath "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\scripts\$VmName" --automount
+    # Configure & mount shared folder
+    VBoxManage sharedfolder add $VmName --name shared --hostpath "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\scripts\$VmName" --automount
 
     # Unattended installation of Windows server
     VBoxManage unattended install $VmName --iso=$IsoPath --user=denis --password pass1234 --locale="en_US" --country="FR" --time-zone=CET --hostname="${VmName}.ws2-2324-denis.hogent" --image-index=$imageIndex --install-additions
-}
-
-function StartVm {
-    param ([string]$VmName)
-    
-    VBoxManage startvm $VmName --type headless
 }
 
 # OS configurations
@@ -60,15 +54,13 @@ $W10IsoPath = "C:\Users\rouxd\OneDrive\Bureau\Windows-Server\images\en-us_window
 VBoxManage natnetwork add --netname NATNetwork1 --network "192.168.23.0/24" --enable
 
 # Create VMs
-CreateVm "CA-AD" $WSOsType 1 (2 * 1024) (10 * 1024) "C:\Users\rouxd\VirtualBox VMs\CA-AD\CA-AD.vdi" $WSIsoPath 1
-CreateVm "DHCP-DNS" $WSOsType 1 (2 * 1024) (10 * 1024) "C:\Users\rouxd\VirtualBox VMs\DHCP-DNS\DHCP-DNS.vdi" $WSIsoPath 1
-CreateVm "SharePoint-DNS" $WSOsType 2 (4 * 1024) (45 * 1024) "C:\Users\rouxd\VirtualBox VMs\SharePoint-DNS\SharePoint-DNS.vdi" $WSIsoPath 2
-CreateVm "SQLServer" $WSOsType 2 (4 * 1024) (64 * 1024) "C:\Users\rouxd\VirtualBox VMs\SQLServer\SQLServer.vdi" $WSIsoPath 1
-CreateVm "Client" $W10OsType 2 (4 * 1024) (35 * 1024) "C:\Users\rouxd\VirtualBox VMs\Client\Client.vdi" $W10IsoPath 1
+CreateVm "Domain" $WSOsType 1 (2 * 1024) (20 * 1024) "C:\Users\rouxd\VirtualBox VMs\Domain\Domain.vdi" $WSIsoPath 2
+CreateVm "SharePoint" $WSOsType 2 (4 * 1024) (60 * 1024) "C:\Users\rouxd\VirtualBox VMs\SharePoint\SharePoint.vdi" $WSIsoPath 2
+CreateVm "SQLServer-DNS" $WSOsType 2 (2 * 1024) (60 * 1024) "C:\Users\rouxd\VirtualBox VMs\SQLServer-DNS\SQLServer-DNS.vdi" $WSIsoPath 1
+CreateVm "Client" $W10OsType 1 (4 * 1024) (50 * 1024) "C:\Users\rouxd\VirtualBox VMs\Client\Client.vdi" $W10IsoPath 1
 
 # Start VMs
-StartVm CA-AD
-StartVm DHCP-DNS
-StartVm SharePoint-DNS
-StartVm SQLServer
-StartVm Client
+VBoxManage startvm "Domain" --type headless
+VBoxManage startvm "SharePoint" --type headless
+VBoxManage startvm "SQLServer-DNS" --type headless
+VBoxManage startvm "Client" --type headless
