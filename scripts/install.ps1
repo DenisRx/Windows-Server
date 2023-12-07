@@ -19,6 +19,9 @@ function CreateVm {
     # Set NAT network
     VBoxManage modifyvm $VmName --nic1 natnetwork --nat-network1 NATNetwork1
 
+    # Enable shared clipboard
+    VBoxManage modifyvm $VmName --clipboard bidirectional
+
     # Create disk and set the size
     VBoxManage createmedium disk --filename $DiskPath --size $DiskSize --format VDI
 
@@ -60,7 +63,8 @@ CreateVm "SQLServer-DNS" $WSOsType 2 (2 * 1024) (60 * 1024) "C:\Users\rouxd\Virt
 CreateVm "Client" $W10OsType 1 (4 * 1024) (50 * 1024) "C:\Users\rouxd\VirtualBox VMs\Client\Client.vdi" $W10IsoPath 1
 
 # Start VMs
-VBoxManage startvm "Domain" --type headless
-VBoxManage startvm "SharePoint" --type headless
-VBoxManage startvm "SQLServer-DNS" --type headless
-VBoxManage startvm "Client" --type headless
+VBoxManage startvm "DomainTest" --type headless
+# VBoxManage startvm "Domain" --type headless
+# VBoxManage startvm "SharePoint" --type headless
+# VBoxManage startvm "SQLServer-DNS" --type headless
+# VBoxManage startvm "Client" --type headless
