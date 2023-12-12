@@ -1,9 +1,9 @@
-# Create Forward Lookup Zone
-Add-DnsServerPrimaryZone -Name "Primary-WS2-2324-denis.hogent-DNS" -ReplicationScope "Forest" -PassThru
+# Add the user to Domain admins group
+Add-ADGroupMember -Identity "Domain Admins" -Members "denis"
 
 # Get the network adapter interface index and set the new static IP address
 $interfaceIndex = (Get-NetAdapter | Where-Object {$_.InterfaceAlias -eq "Ethernet"}).InterfaceIndex
-New-NetIPAddress -InterfaceIndex $interfaceIndex -IPAddress "192.168.23.5" -PrefixLength 24 -DefaultGateway "192.168.23.1"
+New-NetIPAddress -InterfaceIndex $interfaceIndex -IPAddress "192.168.23.5" -PrefixLength 24 -DefaultGateway "192.168.23.2"
 
 # Set DNS server address
 Set-DnsClientServerAddress -InterfaceIndex $interfaceIndex -ServerAddresses "127.0.0.1"
