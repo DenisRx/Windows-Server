@@ -60,7 +60,7 @@ VBoxManage natnetwork add --netname NATNetwork1 --network "192.168.23.0/24" --en
 CreateVm "Domain" $WSOsType 1 (2 * 1024) (20 * 1024) "C:\Users\rouxd\VirtualBox VMs\Domain\Domain.vdi" $WSIsoPath 2
 CreateVm "SharePoint" $WSOsType 2 (4 * 1024) (60 * 1024) "C:\Users\rouxd\VirtualBox VMs\SharePoint\SharePoint.vdi" $WSIsoPath 2
 CreateVm "SQLServer-DNS" $WSOsType 2 (2 * 1024) (60 * 1024) "C:\Users\rouxd\VirtualBox VMs\SQLServer-DNS\SQLServer-DNS.vdi" $WSIsoPath 1
-CreateVm "Client1" $W10OsType 1 (4 * 1024) (50 * 1024) "C:\Users\rouxd\VirtualBox VMs\Client1\Client1.vdi" $W10IsoPath 1
+CreateVm "Client1" $W10OsType 1 (2 * 1024) (50 * 1024) "C:\Users\rouxd\VirtualBox VMs\Client1\Client1.vdi" $W10IsoPath 1
 
 # Start VMs
 VBoxManage startvm "Domain" --type headless
