@@ -1,3 +1,7 @@
+# Get the network adapter interface index and set the new static IP address
+$interfaceIndex = (Get-NetAdapter | Where-Object {$_.InterfaceAlias -eq "Ethernet"}).InterfaceIndex
+New-NetIPAddress -InterfaceIndex $interfaceIndex -IPAddress "192.168.23.5" -PrefixLength 24 -DefaultGateway "192.168.23.2"
+
 # Install AD-DS
 Install-WindowsFeature -name AD-Domain-Services -IncludeManagementTools
 
